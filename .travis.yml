@@ -1,22 +1,21 @@
 language: node_js
+
 node_js:
-- 7.4.0
+  - 7.4.0
+
 branches:
   only:
-  - master
+    - master
+
 before_deploy:
-- terraform_url=$(curl https://releases.hashicorp.com/index.json | jq '{terraform}'
-  | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}')
-- curl -o terraform.zip $terraform_url
-- sudo unzip terraform.zip -d /opt/terraform
-- sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-- rm -f terraform.zip
+  - terraform_url=$(curl https://releases.hashicorp.com/index.json | jq '{terraform}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}')
+  - curl -o terraform.zip $terraform_url
+  - sudo unzip terraform.zip -d /opt/terraform
+  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+  - rm -f terraform.zip
+
 deploy:
   provider: script
   script: make deploy
   on:
     branch: master
-env:
-  global:
-    - secure: jng7pnROsJE7eyn/06JSrjSF6w4QHcLZUNJDwh9IvHRJt68DpDZ64NDOENBDRvs4dOnyic/wQoXzE9u/yIwDxLRvCJAgDb1pbJ/SiyQhl0Ck7YUXaAkz7SQdzVfqSB2slRhqJZwZj9ewSrJi6aBlNGCbffPvLNw6WJAagGALs/1A1jW8sVPCdNPyqweuSxmlS5uqE1vDs1dJFsOUf6PMDy8nm6ms3l7OKJe3gK/sjdLVZoruKaZPuiuf0oY3oNW2pYi40UByXH+Pe0VGDf+7fzebxyiRNd2Tp27ykE7CKvetTldMvLLMb8JUV33wlin1NRWRZUFxQiD6gD4XrkBGl/N6AaCmAYizBP0BY9w1StdvE30r2vG1kmddupSBR7D2G5nj9JFr2kzdv0WZmXb0dslIxm4yQDncOsORiuiy6jLz//d8YzYWCRryuLKf3LKsxv3iCr4/JFvDDPcyJhgFu7nONkUS1Fib7hgX9RtMOq73II+fePObS/fDDjKkLQk4QMOqQ9jsPTt5T6zn02l8zKuTIoMG96AKSJTYZClUf6DXqsYgyqdlDsE33ed0X7hAlBWmUWQJOY++yYJnh8HvQ2pzv/81qwj/r/QlZP0BZ3aZwLlyMM1HZTHGqLzUP7tCApiYRG9LB2F8TaxYpBQLQe2FiUlDjTFjrunMa0dTrkU=
-    - secure: 4qsbDUe9EKePi82Ip4iukRAmtjTwoiaNy7sClbJ8Jns41u0KBJT52vNei0mgN1bnh7AZb8Nn47aUch7ujn661TPqgF8kzkjB6IUkOcb6ngzH4AxJtLQkelujEOi6Kfdb+TWbxAwiA4f4pVnONHVE6lzHCXKt1CYmFELSqNWsooZtxbzhBpDmL8DTiPNppFhBYcO6vr4OveHOJ1NxyuwfrBmgbszyGR6I/LAhKzd8qQJF6Rh1ozpnsMDDXQsitZjxA40xB5+F9h0zD4Lx1JGSasxAxzRrb+n4YyOPg3dJC6wXdIZmFJILDgSSuWyw8JzhcuAbTqGjubbyuwdMfAnXcQh/SC6dzolVXPamaWsEcVpvaOql8mREi2M0BLjscP7JlHQ0RtZaylsBUYwdl/Y6qNzhbHKmsWIwzl+m3zRjjPAMM0cMIzPTsW/Z+SKTF84Ktt/aYx84L6qhSb2bOUslqzeIZl1t7pPpa+qkIyUdKL9u4w5sg98hwJM493Seb/aWztqyHeTPQH51Cl5syrcijxPE2mlhxn2Wr0CiUG5dIe/+BuT7EgBXsXW8lBOQoAzVNe1awmjM+Y7y6dQAX8TgFZHMdvx8jLdTYliPkWbk2wROvj5wlyiyIBnTzRHdJiENsls2upqeXCJdxrIRHkLZJHde8Tu1Zr82Yo5KfNj5CU=

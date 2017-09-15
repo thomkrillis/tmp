@@ -1,4 +1,4 @@
-# AI Framework [![Build Status](https://travis-ci.org/hackerati/skills-framework-test.svg?branch=master)](https://travis-ci.org/hackerati/skills-framework-test)
+# AI Framework [![Build Status](https://travis-ci.org/hackerati/generated-lambda.svg?branch=master)](https://travis-ci.org/hackerati/generated-lambda)
 
 ## Local Setup
 

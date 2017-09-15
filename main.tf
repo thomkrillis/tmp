@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "hackerati-terraform-backends"
-    key    = "skills-framework-test"
+    key    = "generated-lambda"
     region = "us-east-1"
   }
 }
@@ -10,8 +10,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_iam_role" "skills-framework-test" {
-  name = "skills-framework-test"
+resource "aws_iam_role" "generated-lambda" {
+  name = "generated-lambda"
   path = "/service-role/"
 
   assume_role_policy = <<EOF
@@ -31,11 +31,11 @@ resource "aws_iam_role" "skills-framework-test" {
 EOF
 }
 
-resource "aws_lambda_function" "skills-framework-test" {
-  filename         = "dist/skills-framework-test.zip"
-  function_name    = "skills-framework-test"
-  role             = "${aws_iam_role.skills-framework-test.arn}"
+resource "aws_lambda_function" "generated-lambda" {
+  filename         = "dist/generated-lambda.zip"
+  function_name    = "generated-lambda"
+  role             = "${aws_iam_role.generated-lambda.arn}"
   handler          = "lambda.handler"
-  source_code_hash = "${base64sha256(file("${path.module}/dist/skills-framework-test.zip"))}"
+  source_code_hash = "${base64sha256(file("${path.module}/dist/generated-lambda.zip"))}"
   runtime          = "nodejs6.10"
 }
